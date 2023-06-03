@@ -131,8 +131,12 @@ class Task(object):
         self.jobs = []
 
     def getAllResources(self):
-        # TODO
-        pass
+        """getAllResources
+
+        Returns:
+            dict: Dictionary of sections
+        """
+        return self.sections
 
     def spawnJob(self, releaseTime):
         if self.lastReleasedTime > 0 and releaseTime < self.lastReleasedTime:
