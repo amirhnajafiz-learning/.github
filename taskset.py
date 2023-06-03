@@ -187,8 +187,16 @@ class Task(object):
 
 class Job(object):
     def __init__(self, task, jobId, releaseTime):
-        # TODO
-        pass
+        """__init__
+
+        Args:
+            task (Task): Job task
+            jobId (int): an id for the job
+            releaseTime (int): release time of the job
+        """
+        self.task = task
+        self.jobId = jobId
+        self.releaseTime = releaseTime
 
     def getResourceHeld(self):
         '''the resources that it's currently holding'''
