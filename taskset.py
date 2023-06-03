@@ -169,8 +169,12 @@ class Task(object):
         return None
 
     def getUtilization(self):
-        # TODO
-        pass
+        """getUtilization
+
+        Returns:
+            float: Worst case execution time divided by relative deadline
+        """
+        return float(self.wcet / self.relativeDeadline)
 
     def __str__(self):
         return "task {0}: (Φ,T,C,D,∆) = ({1}, {2}, {3}, {4}, {5})".format(self.id, self.offset, self.period, self.wcet,
