@@ -131,7 +131,8 @@ class Task(object):
         self.jobs = []
 
     def getAllResources(self):
-        @TODO
+        # TODO
+        pass
 
     def spawnJob(self, releaseTime):
         if self.lastReleasedTime > 0 and releaseTime < self.lastReleasedTime:
@@ -168,7 +169,8 @@ class Task(object):
         return None
 
     def getUtilization(self):
-        @TODO
+        # TODO
+        pass
 
     def __str__(self):
         return "task {0}: (Φ,T,C,D,∆) = ({1}, {2}, {3}, {4}, {5})".format(self.id, self.offset, self.period, self.wcet,
@@ -177,27 +179,34 @@ class Task(object):
 
 class Job(object):
     def __init__(self, task, jobId, releaseTime):
-        @TODO
+        # TODO
+        pass
 
     def getResourceHeld(self):
         '''the resources that it's currently holding'''
-        @TODO        
+        # TODO
+        pass        
 
     def getRecourseWaiting(self):
         '''a resource that is being waited on, but not currently executing'''
-        @TODO
+        # TODO
+        pass
         
     def getRemainingSectionTime(self):
-        @TODO
+        # TODO
+        pass
 
     def execute(self, time):
-        @TODO
+        #TODO
+        pass
         
     def executeToCompletion(self):
-        @TODO
+        #TODO
+        pass
 
     def isCompleted(self):
-        @TODO
+        #TODO
+        pass
 
     def __str__(self):
         return "[{0}:{1}] released at {2} -> deadline at {3}".format(self.task.id, self.id, self.releaseTime,
