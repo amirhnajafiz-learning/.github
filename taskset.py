@@ -195,8 +195,9 @@ class Job(object):
             releaseTime (int): release time of the job
         """
         self.task = task
-        self.jobId = jobId
+        self.id = jobId
         self.releaseTime = releaseTime
+        self.deadline = self.releaseTime + self.task.relativeDeadline
 
     def getResourceHeld(self):
         '''the resources that it's currently holding'''
