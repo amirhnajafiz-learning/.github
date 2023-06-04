@@ -12,7 +12,19 @@ class Scheduler(object):
         self.taskSet = TaskSet(data)
         
         self.resources = []
-        
-        self.currentJob = None
-        self.jobsList = []
     
+    def run(self, limit):
+        """execute scheduler in an amount of time
+
+        Args:
+            limit (int): timeline
+
+        Returns:
+            dict: time and jobs
+        """
+        jobsList = {}
+        
+        for time in limit:
+            pass
+        
+        return jobsList
