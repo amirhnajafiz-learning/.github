@@ -187,7 +187,7 @@ class Task(object):
 
 class Job(object):
     def __init__(self, task, jobId, releaseTime):
-        """__init__
+        """constructor
 
         Args:
             task (Task): Job task
@@ -196,34 +196,28 @@ class Job(object):
         """
         self.task = task
         self.id = jobId
+        
         self.releaseTime = releaseTime
+        self.remainTime = self.task.wcet
         self.deadline = self.releaseTime + self.task.relativeDeadline
-
-    def getResourceHeld(self):
-        '''the resources that it's currently holding'''
-        # TODO
-        pass        
-
-    def getRecourseWaiting(self):
-        '''a resource that is being waited on, but not currently executing'''
-        # TODO
-        pass
         
-    def getRemainingSectionTime(self):
-        # TODO
-        pass
-
-    def execute(self, time):
-        #TODO
-        pass
+        self.fixedPriority = float(1 / self.deadline)
+        self.dynamicPriority = self.fixedPriority
         
-    def executeToCompletion(self):
-        #TODO
-        pass
+    def is_active(self, time):
+        """check if the job is activated or not
 
-    def isCompleted(self):
-        #TODO
-        pass
+        Args:
+            time (int): the current time
+
+        Returns:
+            bool: activated or not
+        """
+        return self.remainTime > 0 and self.releaseTime >= time and self.deadline < time
+
+    def do(self):
+        """execute job for 1 unit of time"""
+        self.remainTime = self.remainTime - 1
 
     def __str__(self):
         return "[{0}:{1}] released at {2} -> deadline at {3}".format(self.task.id, self.id, self.releaseTime,
