@@ -102,6 +102,14 @@ class TaskSet(object):
 
     def getTaskById(self, taskId):
         return self.tasks[taskId]
+    
+    def getJobs(self):
+        """get all of the jobs
+
+        Returns:
+            list: a list of all jobs
+        """
+        return [task.getJobs() for task in self]
 
     def printTasks(self):
         print("\nTask Set:")
