@@ -109,7 +109,10 @@ class TaskSet(object):
         Returns:
             list: a list of all jobs
         """
-        return [task.getJobs() for task in self]
+        jobs = []
+        for task in self:
+            jobs = jobs + task.getJobs()
+        return jobs
 
     def printTasks(self):
         print("\nTask Set:")

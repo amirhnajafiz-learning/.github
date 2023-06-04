@@ -26,13 +26,12 @@ class Scheduler(object):
         
         for time in range(limit):
             currentJob = None
-            jobs = [job for job in self.taskSet.getJobs()] # get all jobs
             
-            activeJobs = [job for job in jobs if job.isActive(time)] # get all active jobs
-            activeJobs.sort(key=lambda x: x.getFP(), reverse=True) # sort jobs by deadline monothonic
+            jobs = [job for job in self.taskSet.getJobs() if job.isActive(time)] # get all active jobs
+            jobs.sort(key=lambda x: x.getFP(), reverse=True) # sort jobs by deadline monothonic
             
-            if len(activeJobs) > 0: # schedule
-                currentJob = activeJobs[0]
+            if len(jobs) > 0: # schedule
+                currentJob = jobs[0]
             
             jobsList[time] = currentJob
         
