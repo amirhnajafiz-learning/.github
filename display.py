@@ -27,6 +27,7 @@ class Display(object):
         
         gnt.grid(True)
         
+        # display jobs
         for t, j in jobs.items():
             if j != None:
                 ycoor = 2 * (j.getTaskId() - 1)
@@ -34,5 +35,6 @@ class Display(object):
                 gnt.broken_barh([(j.releaseTime, 0.25)], (ycoor, 1.5), facecolors=('tab:orange'))
                 gnt.broken_barh([(j.deadline, 0.25)], (ycoor, 1.5), facecolors=('tab:red'))
         
+        plt.legend()
         plt.show()
         
