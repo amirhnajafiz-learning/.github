@@ -12,7 +12,7 @@ class Display(object):
         fig, gnt = plt.subplots()
         
         # Setting Y-axis and X-axis limits
-        gnt.set_ylim(0, ylimit+1)
+        gnt.set_ylim(0, ylimit)
         gnt.set_xlim(0, xlimit)
         
         # Setting labels for x-axis and y-axis
@@ -20,16 +20,16 @@ class Display(object):
         gnt.set_ylabel('Tasks')
         
         # Setting ticks on y-axis
-        gnt.set_yticks([1 for _ in range(ylimit)])
+        gnt.set_yticks([x+1 for x in range(ylimit)])
         
         # Labelling tickes of y-axis
-        gnt.set_yticklabels([f'Task {x}' for x in range(ylimit)])
+        gnt.set_yticklabels([f'Task {x+1}' for x in range(ylimit)])
         
         gnt.grid(True)
         
         for t, j in jobs.items():
             if j != None:
-                gnt.broken_barh([(t, 1)], (j.getTaskId(), 1), facecolors=('tab:orange'))
+                gnt.broken_barh([(t, 1)], (j.getTaskId()-1, 1), facecolors=('tab:blue'))
         
         plt.show()
         
