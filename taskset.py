@@ -235,7 +235,38 @@ class Job(object):
         
         return -1
         
+    def getId(self):
+        """get job id
 
+        Returns:
+            int: job it
+        """
+        return self.id
+
+    def getFP(self):
+        """get fixed priority
+
+        Returns:
+            float: fixed priority of the job
+        """
+        return self.fixedPriority
+    
+    def getDP(self):
+        """get dynamic priority
+
+        Returns:
+            float: dynamic priority of the job
+        """
+        return self.dynamicPriority
+    
+    def setDP(self, value):
+        """set dynamic priority
+
+        Args:
+            value (float): dynamic priority
+        """
+        self.dynamicPriority = value
+    
     def doJob(self):
         """execute job for 1 unit of time"""
         self.executeTime = self.executeTime + 1
