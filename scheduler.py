@@ -13,6 +13,14 @@ class Scheduler(object):
         
         self.resources = []
     
+    def size(self):
+        """return the size of task set
+
+        Returns:
+            int: len of tasks
+        """
+        return len(self.taskSet)
+    
     def run(self, limit):
         """execute scheduler in an amount of time
 

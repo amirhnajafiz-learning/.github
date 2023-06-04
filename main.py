@@ -1,6 +1,7 @@
 import sys
 import json
 
+from display import Display
 from scheduler import Scheduler
 
 
@@ -24,3 +25,6 @@ if __name__ == "__main__":
     for t, j in jobs.items():
         if j != None:
             print(f'{t:02d} | {j}')
+    
+    # show diagram
+    Display(jobs, time, s.size())

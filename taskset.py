@@ -165,7 +165,7 @@ class Task(object):
 
         self.jobs.append(job)
         return job
-
+    
     def getJobs(self):
         return self.jobs
 
@@ -214,6 +214,14 @@ class Job(object):
         
         self.fixedPriority = float(1 / self.deadline)
         self.dynamicPriority = self.fixedPriority
+        
+    def getTaskId(self):
+        """get task id
+
+        Returns:
+            int: task id
+        """
+        return self.task.id
         
     def isActive(self, time):
         """check if the job is activated or not
