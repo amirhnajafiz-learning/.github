@@ -2,6 +2,11 @@ from taskset import TaskSet
 
 
 
+NO_MODE = 1
+NPP = 2
+HLP = 3
+
+
 class Scheduler(object):
     def __init__(self, data):
         """constructor
@@ -64,7 +69,7 @@ class Scheduler(object):
         self.queue = queue
                 
             
-    def run(self, limit):
+    def run(self, limit, mode):
         """execute scheduler in an amount of time
 
         Args:
@@ -85,19 +90,22 @@ class Scheduler(object):
             jobs.sort(key=lambda x: x.getFP(), reverse=True) # sort jobs by deadline monothonic
             
             if len(jobs) > 0: # schedule when we have jobs
-                for job in jobs:
-                    currentJob = job
-                    
-                    # get job demand
-                    jobDemand = currentJob.demandResource()
-                    if jobDemand != 0: # resource wanted
-                        if self.resourceAvailable(jobDemand):
-                            self.getResource(jobDemand, currentJob.getId()) # get resource
+                if mode == NO_MODE: # no mode for resource
+                    currentJob = jobs[0]
+                elif mode == NPP: # Non-Preemptive Protocol
+                    for job in jobs:
+                        currentJob = job
+                        
+                        # get job demand
+                        jobDemand = currentJob.demandResource()
+                        if jobDemand != 0: # resource wanted
+                            if self.resourceAvailable(jobDemand):
+                                self.getResource(jobDemand, currentJob.getId()) # get resource
+                                break
+                            else: # cannot be executed while the resource is in use
+                                continue
+                        else: # no resource wanted
                             break
-                        else: # cannot be executed while the resource is in use
-                            continue
-                    else: # no resource wanted
-                        break
                 
             if currentJob != None: # do the job
                 currentJob.doJob()
