@@ -33,8 +33,7 @@ class Display(object):
                 ycoor = 2 * (j.getTaskId() - 1)
                 gnt.broken_barh([(t, 1)], (ycoor, 1), facecolors=('tab:blue'))
                 gnt.broken_barh([(j.releaseTime, 0.25)], (ycoor, 1.5), facecolors=('tab:orange'))
-                gnt.broken_barh([(j.deadline, 0.25)], (ycoor, 1.5), facecolors=('tab:red'))
+                gnt.broken_barh([(j.deadline, 0.25)], (ycoor, 1.75), facecolors=('tab:red'))
         
-        plt.legend()
         plt.show()
         
