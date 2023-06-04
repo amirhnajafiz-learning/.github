@@ -224,7 +224,7 @@ class Job(object):
         Returns:
             bool: activated or not
         """
-        return self.executeTime < self.task.wcet and self.releaseTime >= time and self.deadline < time
+        return self.executeTime < self.task.wcet and self.releaseTime <= time and self.deadline > time
     
     def demandResource(self):
         """return the demand id of resource

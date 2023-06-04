@@ -23,4 +23,4 @@ if __name__ == "__main__":
     
     for t, j in jobs.items():
         if j != None:
-            print(f'{t} | {j}')
+            print(f'{t:02d} | {j}')
