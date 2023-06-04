@@ -103,6 +103,23 @@ class TaskSet(object):
     def getTaskById(self, taskId):
         return self.tasks[taskId]
     
+    def getJobById(self, id):
+        """get a job by id
+
+        Args:
+            id (int): job id
+
+        Returns:
+            Job: wanted job
+        """
+        jobs = self.getJobs()
+        
+        for job in jobs:
+            if job.id == id:
+                return job
+        
+        return None
+    
     def getJobs(self):
         """get all of the jobs
 
