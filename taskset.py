@@ -197,14 +197,14 @@ class Job(object):
         self.task = task
         self.id = jobId
         
+        self.executeTime = 0
         self.releaseTime = releaseTime
-        self.remainTime = self.task.wcet
         self.deadline = self.releaseTime + self.task.relativeDeadline
         
         self.fixedPriority = float(1 / self.deadline)
         self.dynamicPriority = self.fixedPriority
         
-    def is_active(self, time):
+    def isActive(self, time):
         """check if the job is activated or not
 
         Args:
@@ -213,11 +213,32 @@ class Job(object):
         Returns:
             bool: activated or not
         """
-        return self.remainTime > 0 and self.releaseTime >= time and self.deadline < time
+        return self.executeTime < self.task.wcet and self.releaseTime >= time and self.deadline < time
+    
+    def demandResource(self):
+        """return the demand id of resource
 
-    def do(self):
+        Returns:
+            int: id of resource
+        """
+        sections = self.task.getAllResources()
+        
+        overall = 0
+        for section in sections:
+            id = section[0]
+            time = section[1]
+            
+            if self.executeTime < time + overall:
+                return id
+            
+            overall = overall + time
+        
+        return -1
+        
+
+    def doJob(self):
         """execute job for 1 unit of time"""
-        self.remainTime = self.remainTime - 1
+        self.executeTime = self.executeTime + 1
 
     def __str__(self):
         return "[{0}:{1}] released at {2} -> deadline at {3}".format(self.task.id, self.id, self.releaseTime,
