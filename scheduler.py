@@ -10,4 +10,9 @@ class Scheduler(object):
             data (json): json object of tasks data
         """
         self.taskSet = TaskSet(data)
+        
+        self.resources = []
+        
+        self.currentJob = None
+        self.jobsList = []
     
