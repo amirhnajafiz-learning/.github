@@ -1,7 +1,7 @@
 import sys
 import json
 
-from display import Display
+from ui.display import Display
 from scheduler import Scheduler
 
 
