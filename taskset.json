@@ -23,8 +23,8 @@
             "period": 20,
             "wcet": 5,
             "deadline": 20,
-            "offset": 5,
-            "sections": [[3,2],[0,2],[2,1]]
+            "offset": 0,
+            "sections": [[1,2],[0,2],[2,1]]
         }
     ]
 }
