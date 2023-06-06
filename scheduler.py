@@ -136,6 +136,32 @@ class Scheduler(object):
                                     continue
                             else: # no resource wanted
                                 break
+                elif mode == HLP: # High Lock priority
+                    # priority is for jobs that hold a resource
+                    if len(highJobs) > 0:
+                        currentJob = self.taskSet.getJobById(highJobs[0])
+                        # after that use other jobs
+                        for job in jobs:
+                            if job.getFP() > currentJob.getFP():
+                                currentJobDemand = currentJob.demandResource()
+                                if currentJobDemand != 0 and not job.wantsTheResourceOrNot(currentJobDemand):
+                                    currentJob = job
+                                    break
+                    else:
+                        # after that use other jobs
+                        for job in jobs:
+                            currentJob = job
+                            
+                            # get job demand
+                            jobDemand = currentJob.demandResource()
+                            if jobDemand != 0: # resource wanted
+                                if self.resourceAvailable(jobDemand):
+                                    self.getResource(jobDemand, currentJob.getId(), time) # get resource
+                                    break
+                                else: # cannot be executed while the resource is in use
+                                    continue
+                            else: # no resource wanted
+                                break
                 
             if currentJob != None: # do the job
                 finalDemand = currentJob.demandResource()

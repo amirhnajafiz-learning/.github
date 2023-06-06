@@ -8,7 +8,7 @@
             "wcet": 7,
             "deadline": 25,
             "offset": 1,
-            "sections": [[1,1],[0,4],[3,2]]
+            "sections": [[1,1],[3,4],[0,2]]
         },
         {
             "taskId": 2,
@@ -16,7 +16,7 @@
             "wcet": 4,
             "deadline": 30,
             "offset": 0,
-            "sections": [[1,2],[3,2]]
+            "sections": [[1,2],[2,2]]
         },
         {
             "taskId": 3,
@@ -24,7 +24,7 @@
             "wcet": 5,
             "deadline": 20,
             "offset": 5,
-            "sections": [[1,2],[0,2],[2,1]]
+            "sections": [[3,2],[0,2],[2,1]]
         }
     ]
 }

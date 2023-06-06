@@ -270,6 +270,22 @@ class Job(object):
             overall = overall + time
         
         return -1
+    
+    def wantsTheResourceOrNot(self, resource):
+        """checks the see if the job wants a resource or not
+
+        Args:
+            resource (int): resource type
+
+        Returns:
+            bool: true or not
+        """
+        sections = self.task.getAllResources()
+        for section in sections:
+            if resource == section[0]:
+                return True
+        
+        return False
         
     def getId(self):
         """get job id
