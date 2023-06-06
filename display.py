@@ -2,6 +2,20 @@ import matplotlib.pyplot as plt
 
 
 
+colors = {
+    1: 'green',
+    2: 'purple',
+    3: 'cyan',
+    4: 'yellow',
+    5: 'black'
+}
+
+
+def getColor(number):
+    return colors[number]
+
+
+
 class Display(object):
     def __init__(self, jobs, xlimit, ylimit):
         """constructor
@@ -33,7 +47,7 @@ class Display(object):
             color = 'blue'
             
             if j['resource'] != 0:
-                color = 'green'
+                color = getColor(j['resource'])
             
             if job != None:
                 ycoor = 2 * (job.getTaskId() - 1)

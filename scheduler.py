@@ -89,8 +89,7 @@ class Scheduler(object):
                 queue.append((resource, job.getId(), time))
         
         self.queue = queue
-                
-            
+                   
     def run(self, limit, mode):
         """execute scheduler in an amount of time
 

@@ -264,7 +264,7 @@ class Job(object):
             id = section[0]
             time = section[1]
             
-            if self.executeTime <= time + overall:
+            if self.executeTime < time + overall:
                 return id
             
             overall = overall + time

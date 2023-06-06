@@ -1,14 +1,14 @@
 {
     "startTime": 0,
-    "endTime": 31,
+    "endTime": 60,
     "taskset": [
         {
             "taskId": 1,
             "period": 25,
-            "wcet": 3,
+            "wcet": 7,
             "deadline": 25,
             "offset": 1,
-            "sections": [[1,1],[0,2]]
+            "sections": [[1,1],[0,4],[3,2]]
         },
         {
             "taskId": 2,
@@ -21,10 +21,10 @@
         {
             "taskId": 3,
             "period": 20,
-            "wcet": 2,
+            "wcet": 5,
             "deadline": 20,
-            "offset": 0,
-            "sections": [[1,2]]
+            "offset": 5,
+            "sections": [[1,2],[0,2],[2,1]]
         }
     ]
 }
