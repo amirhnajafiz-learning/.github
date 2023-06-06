@@ -29,11 +29,17 @@ class Display(object):
         
         # display jobs
         for t, j in jobs.items():
-            if j != None:
-                ycoor = 2 * (j.getTaskId() - 1)
-                gnt.broken_barh([(t, 1)], (ycoor, 1), facecolors=('tab:blue'))
-                gnt.broken_barh([(j.releaseTime, 0.25)], (ycoor, 1.5), facecolors=('tab:orange'))
-                gnt.broken_barh([(j.deadline, 0.25)], (ycoor, 1.75), facecolors=('tab:red'))
+            job = j['job']
+            color = 'blue'
+            
+            if j['resource'] != 0:
+                color = 'green'
+            
+            if job != None:
+                ycoor = 2 * (job.getTaskId() - 1)
+                gnt.broken_barh([(t, 1)], (ycoor, 1), facecolors=(f'tab:{color}'))
+                gnt.broken_barh([(job.releaseTime, 0.25)], (ycoor, 1.5), facecolors=('tab:orange'))
+                gnt.broken_barh([(job.deadline, 0.25)], (ycoor, 1.75), facecolors=('tab:red'))
         
         plt.show()
         

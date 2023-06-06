@@ -178,7 +178,7 @@ class Task(object):
         self.lastJobId += 1
         self.lastReleasedTime = releaseTime
 
-        job = Job(self, self.lastJobId, releaseTime)
+        job = Job(self, self.id * 100 + self.lastJobId, releaseTime)
 
         self.jobs.append(job)
         return job
@@ -264,7 +264,7 @@ class Job(object):
             id = section[0]
             time = section[1]
             
-            if self.executeTime < time + overall:
+            if self.executeTime <= time + overall:
                 return id
             
             overall = overall + time
@@ -308,8 +308,8 @@ class Job(object):
         self.executeTime = self.executeTime + 1
 
     def __str__(self):
-        return "[{0}:{1}] released at {2} -> deadline at {3}".format(self.task.id, self.id, self.releaseTime,
-                                                                     self.deadline)
+        return "[{0}:{1}] P[{4}] released at {2} -> deadline at {3}".format(self.task.id, self.id, self.releaseTime,
+                                                                     self.deadline, self.fixedPriority)
 
 
 if __name__ == "__main__":

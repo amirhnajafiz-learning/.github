@@ -1,6 +1,6 @@
 {
     "startTime": 0,
-    "endTime": 60,
+    "endTime": 31,
     "taskset": [
         {
             "taskId": 1,
@@ -17,6 +17,14 @@
             "deadline": 30,
             "offset": 0,
             "sections": [[1,2],[3,2]]
+        },
+        {
+            "taskId": 3,
+            "period": 20,
+            "wcet": 2,
+            "deadline": 20,
+            "offset": 0,
+            "sections": [[1,2]]
         }
     ]
 }

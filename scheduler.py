@@ -7,6 +7,7 @@ NPP = 2
 HLP = 3
 
 
+
 class Scheduler(object):
     def __init__(self, data):
         """constructor
@@ -40,8 +41,28 @@ class Scheduler(object):
         else:
             self.resources[key] = 0
             return True
+    
+    def getHighPriorityJobs(self):
+        """get jobs that had resource and still want that
+
+        Returns:
+            list: list of high priority jobs
+        """
+        highPriorityJobs = []
         
-    def getResource(self, key, value):
+        for item in self.queue:
+            resource = item[0]
+            job = self.taskSet.getJobById(item[1])
+            
+            if job.demandResource() == resource:
+                highPriorityJobs.append(item)
+        
+        highPriorityJobs.sort(key=lambda x: x[2], reverse=True)
+        list = [x[1] for x in highPriorityJobs]
+        
+        return list
+        
+    def getResource(self, key, value, time):
         """get a resource
 
         Args:
@@ -51,7 +72,7 @@ class Scheduler(object):
         self.resources[key] = value
         
         # save the resource get in a queue
-        self.queue.append((key, value))
+        self.queue.append((key, value, time))
     
     def freeUnusedResources(self):
         """free unused resources"""
@@ -60,11 +81,12 @@ class Scheduler(object):
         for item in self.queue:
             resource = item[0]
             job = self.taskSet.getJobById(item[1])
+            time = item[2]
             
             if job.demandResource() != item[0]:
                 self.resources[resource] = 0
             else:
-                queue.append((resource, job.getId()))
+                queue.append((resource, job.getId(), time))
         
         self.queue = queue
                 
@@ -82,6 +104,10 @@ class Scheduler(object):
         
         for time in range(limit):
             currentJob = None
+            finalDemand = 0
+            
+            # get all high priority jobs that use resources
+            highJobs = self.getHighPriorityJobs()
             
             # free all resources if they are done
             self.freeUnusedResources()
@@ -93,23 +119,32 @@ class Scheduler(object):
                 if mode == NO_MODE: # no mode for resource
                     currentJob = jobs[0]
                 elif mode == NPP: # Non-Preemptive Protocol
-                    for job in jobs:
-                        currentJob = job
-                        
-                        # get job demand
-                        jobDemand = currentJob.demandResource()
-                        if jobDemand != 0: # resource wanted
-                            if self.resourceAvailable(jobDemand):
-                                self.getResource(jobDemand, currentJob.getId()) # get resource
+                    # priority is for jobs that hold a resource
+                    if len(highJobs) > 0:
+                        currentJob = self.taskSet.getJobById(highJobs[0])
+                    else:
+                        # after that use other jobs
+                        for job in jobs:
+                            currentJob = job
+                            
+                            # get job demand
+                            jobDemand = currentJob.demandResource()
+                            if jobDemand != 0: # resource wanted
+                                if self.resourceAvailable(jobDemand):
+                                    self.getResource(jobDemand, currentJob.getId(), time) # get resource
+                                    break
+                                else: # cannot be executed while the resource is in use
+                                    continue
+                            else: # no resource wanted
                                 break
-                            else: # cannot be executed while the resource is in use
-                                continue
-                        else: # no resource wanted
-                            break
                 
             if currentJob != None: # do the job
+                finalDemand = currentJob.demandResource()
                 currentJob.doJob()
 
-            jobsList[time] = currentJob
+            jobsList[time] = {
+                'job': currentJob,
+                'resource': finalDemand
+            }
         
         return jobsList
